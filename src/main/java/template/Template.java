@@ -43,4 +43,19 @@ public class Template {
             throw new MissingValueException("No value for " + m.group());
         }
     }
+
+    private void append(String segment, StringBuilder result) {
+        
+
+
+        if (segment.startsWith("${") && segment.endsWith("}")) {
+           String var = segment.substring(2, segment.length() - 1);
+            if (!variables.containsKey(var)) {
+                throw new MissingValueException("No value for " + segment);
+            }
+            result.append(variables.get(var));
+        } else {
+            result.append(segment);
+        }
+ }
 }
